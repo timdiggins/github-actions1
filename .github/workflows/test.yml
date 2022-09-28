@@ -10,7 +10,9 @@ jobs:
     runs-on: ubuntu-20.04
 
     continue-on-error: ${{ matrix.allow_failures || false }}
-
+    env:
+      RAILS_VERSION: "DEFAULT"
+      OTHER: "SOMETHING"
     strategy:
       fail-fast: false
       matrix:
@@ -33,6 +35,11 @@ jobs:
 
       - name: report back!
         run: |
-          echo RAILS_VERSION=$RAILS_VERSION
+          echo RAILS_VERSION "$RAILS_VERSION"
+          echo OTHER "$OTHER"
+          echo WHAT "$WHAT"
           ruby -v
           echo "ruby ${{ matrix.ruby }}"
+          echo "OTHER e ${{ env.OTHER }}"
+          echo "RAILS_VERSION e ${{ env.RAILS_VERSION }}"
+          echo "RAILS_VERSION m ${{ matrix.env.RAILS_VERSION }}"
